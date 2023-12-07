@@ -50,12 +50,36 @@ public class CustomerController : Controller
 
         _ctx.Customers.Add(entity);
 
-        if (await _ctx.SaveChangesAsync() == 1)
+        if (await _ctx.SaveChangesAsync() != 1)
         {
             TempData["ErrorMsg"] = "Unable to save to the database. Please try again later.";
             return View(model);
         }
 
         return RedirectToAction(nameof(Index));
+    }
+
+    // GET: customer/details/{id}
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id is null)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        var entity = await _ctx.Customers.FindAsync(id);
+        if (entity is null)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        CustomerDetailViewModel model = new()
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Email = entity.Email
+        };
+
+        return View(model);
     }
 }
