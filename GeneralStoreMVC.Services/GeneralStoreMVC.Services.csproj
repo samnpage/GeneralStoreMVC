@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralStoreMVC.Models\GeneralStoreMVC.Models.csproj" />
+    <ProjectReference Include="..\GeneralStoreMVC.Data\GeneralStoreMVC.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>d9591d37-8de0-41a1-9693-502bc7ac45e3</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
