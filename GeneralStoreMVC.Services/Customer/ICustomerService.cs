@@ -9,6 +9,7 @@ public interface ICustomerService
     // Read
     Task<List<CustomerIndexViewModel>> GetAllCustomersAsync();
     Task<CustomerDetailViewModel> GetCustomerByIdAsync(int? id);
+    Task<CustomerEditViewModel> GetEditCustomerByIdAsync(int? id);
 
     // Edit
     Task<bool> EditCustomerByIdAsync(int id, CustomerEditViewModel model);
