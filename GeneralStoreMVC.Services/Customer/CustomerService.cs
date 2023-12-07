@@ -55,6 +55,21 @@ public class CustomerService : ICustomerService
         return  model;
     }
 
+    // GET: customer/edit/{id}
+    public async Task<CustomerEditViewModel> GetEditCustomerByIdAsync(int? id)
+    {
+        var entity = await _ctx.Customers.FindAsync(id);
+
+        CustomerEditViewModel model = new()
+        {
+            Name = entity.Name,
+            Email = entity.Email
+        };
+
+        await _ctx.SaveChangesAsync();
+        return  model;
+    }
+
     public async Task<bool> EditCustomerByIdAsync(int id, CustomerEditViewModel model)
     {
         var entity = _ctx.Customers.Find(id);
@@ -83,6 +98,8 @@ public class CustomerService : ICustomerService
         {
             _ctx.Transactions.RemoveRange(entity.Transactions);
         }
+
+        _ctx.Customers.Remove(entity);
         
         if (_ctx.SaveChanges() != 1 + entity.Transactions.Count)
         {
