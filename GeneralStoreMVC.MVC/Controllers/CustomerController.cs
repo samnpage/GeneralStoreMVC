@@ -56,7 +56,7 @@ public class CustomerController : Controller
 
         var customer = await _customerService.GetCustomerByIdAsync(id);
 
-        if (customer is not null)
+        if (customer is null)
         {
             return RedirectToAction(nameof(Index));
         }
@@ -71,9 +71,10 @@ public class CustomerController : Controller
         {
             return RedirectToAction(nameof(Index));
         }
+        
+        var customer = await _customerService.GetEditCustomerByIdAsync(id);
 
-        var customer = await _customerService.GetCustomerByIdAsync(id);
-        if (customer is not null)
+        if (customer is null)
         {
             return RedirectToAction(nameof(Index));
         }
