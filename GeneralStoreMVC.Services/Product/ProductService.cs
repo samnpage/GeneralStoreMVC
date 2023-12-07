@@ -66,7 +66,7 @@ public class ProductService : IProductService
     {
         var product = await _ctx.Products.FindAsync(id);
 
-        ProductEditVM edit = new()
+        ProductEditVM model = new()
         {
             Id = product.Id,
             Name = product.Name,
@@ -74,7 +74,7 @@ public class ProductService : IProductService
             QuantityInStock = product.QuantityInStock
         };
 
-        return edit;
+        return model;
     }
 
     // Update
