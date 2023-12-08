@@ -15,7 +15,7 @@
     </div>
     <div class="col-sm-3">
         <label asp-for="Quantity"></label>
-        <input asp-for="Quantity" min="1" class="form-control" />
+        <input asp-for="Quantity" min="1" max="100" class="form-control" />
     </div>
     <div class="d-flex justify-content-between align-items-baseline">
         <a asp-controller="Customer" asp-action="Details" asp-route-id="@Model.CustomerId">Back to Customer</a>
