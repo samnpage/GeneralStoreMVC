@@ -12,16 +12,6 @@ public class TransactionService : ITransactionService
         _ctx = dbContext;
     }
 
-    public async Task<TransactionCreateVM> GetCreateTransactionAsync(int customerId)
-    {
-        TransactionCreateVM model = new()
-        {
-            CustomerId = customerId
-        };
-
-        return model;
-    }
-
     public async Task<bool> CreateTransactionAsync(int customerId, TransactionCreateVM model)
     {
         TransactionEntity entity = new()

@@ -5,6 +5,4 @@ public interface ITransactionService
 {
     // Create
     Task<bool> CreateTransactionAsync(int customerId, TransactionCreateVM model);
-    // Read
-    Task<TransactionCreateVM> GetCreateTransactionAsync(int customerId);
 }
