@@ -1,4 +1,6 @@
+using System.Transactions;
 using GeneralStoreMVC.Data;
+using GeneralStoreMVC.Data.Entities;
 using GeneralStoreMVC.Models.Transaction;
 using GeneralStoreMVC.Services.Product;
 using GeneralStoreMVC.Services.Transaction;
@@ -26,7 +28,11 @@ public class TransactionController : Controller
         List<SelectListItem> productSelectList = new();
         foreach (var product in products)
         {
-            productSelectList.Add(new SelectListItem{Value = product.Id.ToString(), Text = $"{product.Name}"});
+            productSelectList.Add(new SelectListItem
+            {
+                Value = product.Id.ToString(),
+                Text = $"{product.Name}"
+            });
         }
 
         ViewData["Products"] = productSelectList;
@@ -34,15 +40,37 @@ public class TransactionController : Controller
         return View(await _transactionService.GetCreateTransactionAsync(customerId));
     }
 
+    // [HttpPost]
+    // public async Task<IActionResult> Create(int customerId, TransactionCreateVM model)
+    // {
+    //     if (customerId != model.CustomerId)
+    //         return RedirectToAction("Index", "Customer");
+
+    //     var response = await _transactionService.CreateTransactionAsync(customerId, model);
+
+    //     if (response)
+    //         return RedirectToAction("Details", "Customer", new { id = customerId});
+
+    //     return View(model);
+    // }
+
     [HttpPost]
-    public async Task<IActionResult> Create(int customerId, TransactionCreateVM model)
+    public async Task<IActionResult> Create([FromQuery] int customerId, TransactionCreateVM model)
     {
         if (customerId != model.CustomerId)
             return RedirectToAction("Index", "Customer");
 
-        var response = await _transactionService.CreateTransactionAsync(customerId, model);
+        var entity = new TransactionEntity
+        {
+            ProductId = model.ProductId,
+            CustomerId = model.CustomerId,
+            Quantity = model.Quantity,
+            DateOfTransaction = DateTime.Now
+        };
 
-        if (response)
+        _ctx.Transactions.Add(entity);
+
+        if (await _ctx.SaveChangesAsync() == 1)
             return RedirectToAction("Details", "Customer", new { id = customerId});
 
         return View(model);
