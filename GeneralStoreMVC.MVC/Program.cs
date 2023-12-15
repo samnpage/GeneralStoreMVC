@@ -1,12 +1,14 @@
 using GeneralStoreMVC.Data;
 using GeneralStoreMVC.Services.Customer;
 using GeneralStoreMVC.Services.Product;
+using GeneralStoreMVC.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddServerSideBlazor();
 
 builder.Services.AddDbContext<GeneralStoreDbContext>(
     options => options.UseSqlServer(
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<GeneralStoreDbContext>(
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 var app = builder.Build();
 
@@ -37,5 +40,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapBlazorHub();
 
 app.Run();

@@ -7,6 +7,7 @@
 <div class="d-flex justify-content-between align-items-center mb-2">
     <h1>@title</h1>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light">Edit</a>
+    <a asp-controller="Transaction" asp-action="Create" asp-route-customerId="@Model.Id" class="btn btn-success">Shop</a>
 </div>
 
 <dl class="row">
@@ -23,6 +24,8 @@
         @Html.DisplayFor(model => model.Email)
     </dd>
 </dl>
+
+<component type="typeof(TransactionList)" render-mode="ServerPrerendered" param-transactions="Model.Transactions" />
 
 <div>
     <a asp-action="Index" class="btn btn-primary">Back to List</a>

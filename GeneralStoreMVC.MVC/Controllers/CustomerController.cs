@@ -1,10 +1,6 @@
-using GeneralStoreMVC.Data;
-using GeneralStoreMVC.Data.Entities;
 using GeneralStoreMVC.Models.Customer;
-using GeneralStoreMVC.Models.Responses;
 using GeneralStoreMVC.Services.Customer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GeneralStoreMVC.MVC.Controllers;
 public class CustomerController : Controller

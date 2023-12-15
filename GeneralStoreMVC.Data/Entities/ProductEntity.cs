@@ -1,9 +1,11 @@
-﻿using System.Transactions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Transactions;
 
 namespace GeneralStoreMVC.Data.Entities;
 
 public partial class ProductEntity
 {
+    [Key]
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
