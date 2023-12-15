@@ -45,7 +45,7 @@ public class TransactionController : Controller
     // POST
     // [HttpPost]
     [HttpPost]
-    public async Task<IActionResult> Create([FromRoute] int customerId, TransactionCreateVM model)
+    public async Task<IActionResult> Create(int customerId, TransactionCreateVM model)
     {
         if (customerId != model.CustomerId)
             return RedirectToAction("Index", "Customer");
