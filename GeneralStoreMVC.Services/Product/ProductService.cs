@@ -62,20 +62,20 @@ public class ProductService : IProductService
     }
 
     // Read By Id
-    public async Task<ProductEditVM> GetEditProductAsync(int? id)
-    {
-        var product = await _ctx.Products.FindAsync(id);
+    // public async Task<ProductEditVM> GetEditProductAsync(int? id)
+    // {
+    //     var product = await _ctx.Products.FindAsync(id);
 
-        ProductEditVM model = new()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Price = product.Price,
-            QuantityInStock = product.QuantityInStock
-        };
+    //     ProductEditVM model = new()
+    //     {
+    //         Id = product.Id,
+    //         Name = product.Name,
+    //         Price = product.Price,
+    //         QuantityInStock = product.QuantityInStock
+    //     };
 
-        return model;
-    }
+    //     return model;
+    // }
 
     // Update
     public async Task<bool> EditProductAsync(int id, ProductEditVM product)
