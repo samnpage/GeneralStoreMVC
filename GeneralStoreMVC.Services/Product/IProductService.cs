@@ -10,7 +10,7 @@ public interface IProductService
     // Read
     Task<List<ProductIndexVM>> GetAllProductsAsync();
     Task<ProductDetailVM> GetProductByIdAsync(int? id);
-    Task<ProductEditVM> GetEditProductAsync(int? id);
+    // Task<ProductEditVM> GetEditProductAsync(int? id);
 
     // Update
     Task<bool> EditProductAsync(int id, ProductEditVM product);

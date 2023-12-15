@@ -59,16 +59,23 @@ public class ProductController : Controller
         if (id == null)
             return NotFound();
 
-        var product = await _productService.GetEditProductAsync(id);
-        if (product == null)
+        var product = await _productService.GetProductByIdAsync(id);
+
+        ProductEditVM edit = new()
+        {
+            Name = product.Name,
+            Price = product.Price,
+            QuantityInStock = product.QuantityInStock
+        };
+        if (edit == null)
             return NotFound();
 
-        return View(product);
+        return View(edit);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,QuantityInSTock,Price")] ProductEditVM product)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,QuantityInStock,Price")] ProductEditVM product)
     {
         if (id != product.Id)
             return NotFound();
