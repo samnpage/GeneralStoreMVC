@@ -19,6 +19,6 @@
     </div>
     <div class="d-flex justify-content-between align-items-baseline">
         <a asp-controller="Customer" asp-action="Details" asp-route-id="@Model.CustomerId">Back to Customer</a>
-        <input type="submit" value="Confirm" class="btn btn-primary" asp-route-id="@Model.CustomerId">
+        <input type="submit" value="Confirm" class="btn btn-primary" asp-route-customerId="@Model.CustomerId">
     </div>
 </form>
