@@ -1,6 +1,8 @@
 using GeneralStoreMVC.Data;
 using GeneralStoreMVC.Data.Entities;
 using GeneralStoreMVC.Models.Customer;
+using GeneralStoreMVC.Models.Transaction;
+using GeneralStoreMVC.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeneralStoreMVC.Services.Customer;
@@ -42,13 +44,29 @@ public class CustomerService : ICustomerService
     // GET: customer/details/{id}
     public async Task<CustomerDetailViewModel> GetCustomerByIdAsync(int? id)
     {
-        var entity = await _ctx.Customers.FindAsync(id);
+        var entity = await _ctx.Customers
+            .Include(c => c.Transactions)
+            .ThenInclude(t => t.Product)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (entity is null)
+            return null;
+
+        var transactions = entity.Transactions
+            .Select(t => new TransactionListItem
+            {
+                ProductName = t.Product.Name,
+                Quantity = t.Quantity,
+                DateOfTransaction = t.DateOfTransaction,
+                Price = t.Product.Price * t.Quantity
+            }).ToList();
 
         CustomerDetailViewModel model = new()
         {
             Id = entity.Id,
             Name = entity.Name,
-            Email = entity.Email
+            Email = entity.Email,
+            Transactions = transactions
         };
 
         await _ctx.SaveChangesAsync();
@@ -69,6 +87,7 @@ public class CustomerService : ICustomerService
         await _ctx.SaveChangesAsync();
         return  model;
     }
+
 
     public async Task<bool> EditCustomerByIdAsync(int id, CustomerEditViewModel model)
     {
